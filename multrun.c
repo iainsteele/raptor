@@ -306,10 +306,10 @@ int main(int argc, char* argv[])
 
     switch(exptime) {
     case 1000:
-      strcpy(formatfile, "/home/eng/src/rap_1000ms.fmt");
+      strcpy(formatfile, "rap_1000ms.fmt");
       break;    
     case 100:
-      strcpy(formatfile, "/home/eng/src/rap_100ms.fmt");
+      strcpy(formatfile, "rap_100ms.fmt");
       break;    
     default:
       panic("unsupported exposure time!");
@@ -350,7 +350,7 @@ int main(int argc, char* argv[])
     make_filename(fileprefix);
 
    /* Create fileprefix */
-    strcpy(datadir,"/home/eng/src/data");
+    strcpy(datadir,"./");
     strcpy(prefix,"x");
     make_filename(fileprefix);
 
@@ -382,8 +382,11 @@ int main(int argc, char* argv[])
     const struct tm *nowstruct;
 
     int i;
+
+    if (time(&nowbin) == (time_t)-1)
+      panic("could not get time of day");
     
-    nowstruct=localtime(&nowbin);
+    nowstruct=gmtime(&nowbin);
     
     strftime(nowstring, 80, "%Y-%m-%dT%H:%M:%S", nowstruct);
     strftime(datestring, 80, "%Y-%m-%d", nowstruct);
